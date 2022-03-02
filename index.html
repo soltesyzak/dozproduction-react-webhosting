@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DoZ production</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./index.css">
+  <!-- Your custom script here -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> 
+  <script src="https://unpkg.com/htmlincludejs"></script>
+  <script src="clients.js"></script>
+</head>
+<body> 
+  <div id="navigation"></div>
+  <div id="main"></div>
+  <div id="footer"></div>
+</body>
+
+
+<!-- Navigation -->
+  <script type="text/babel">
+    class Navigation extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          isActive: false
+        }
+        this.onClickMenu = this.onClickMenu.bind(this);           
+      }
+
+      onClickMenu() {
+        this.setState({
+          isActive: !this.state.isActive
+        })
+      } 
+
+
+      render() {
+        const { isActive } = this.state;
+          return (
+          <div className="divNav">
+            <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation" onClick={this.onClickMenu}>
+              <div className="navbar-brand">
+                <a className="navbar-item" href="/">
+                  <figure className="image">
+                    <img />
+                  </figure>
+                </a>
+                <a role="button" className={"navbar-burger"+ (isActive ? " is-active": "")} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                </a>
+              </div>
+              <div id="navbarBasicExample" style={{minHeight: '85px'}} className={"navbar-menu"+ (isActive ? " is-active": "") }>
+                <div className="navbar-start">
+                  <a className="navbar-item" href="./index.html">
+                    <figure className="image">
+                      <img className="navbarImg" src={"./media/IMG_9725.jpg"}/>
+                    </figure>
+                  </a>
+                </div>
+                <div className="navbar-end">
+                  <a className="navbar-item" target="_blank" href="https://facebook.com/DoZproduction/">
+                    <span className="icon-text">
+                      <span className="icon mx-2">
+                        <i className="fa fa-facebook fa-2x"></i>
+                      </span>
+                    </span>
+                  </a>
+                  <a className="navbar-item" target="_blank" href="https://instagram.com/doz_group">
+                    <span className="icon-text">
+                      <span className="icon mx-2">
+                        <i className="fa fa-instagram fa-2x"></i>
+                      </span>
+                    </span>
+                  </a>
+                  <a className="navbar-item" href="tel:+421902163191">
+                    <span className="icon-text">
+                      <span className="icon mx-2">
+                        <i className="fa fa-phone fa-2x"></i>
+                      </span>
+                    </span>
+                  </a>
+                  <a className="navbar-item" target="_blank" href="mailto:lukas.doza@gmail.com">
+                    <span className="icon-text">
+                      <span className="icon mx-2">
+                        <i className="fa fa-envelope fa-2x"></i>
+                      </span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </nav>
+          </div>);
+      } 
+    }
+
+    ReactDOM.render( <Navigation />, document.getElementById('navigation'));
+  </script>
+  <!-- Navigation END -->
+
+  <script type="text/babel">
+    class Main extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          allClientsHtml: <div></div>,
+          currentClientHtml: <div></div>,
+          currentClient: {},
+          clientsList: clientsList,
+          showOne: false
+        }
+        this.handleClick = this.handleClick.bind(this);
+        this.setAllClients = this.setAllClients.bind(this); 
+      }
+
+      componentDidMount() {
+        this.setAllClients();
+      };
+
+      setActiveClient(client) {
+        console.log(client, this.state.showOne);
+        this.setState({
+            currentClient: client,
+            currentClientHtml:
+            <div>
+              <section className="section">
+                <div className="columns is-multiline">
+                  <div className="column is-4">
+                    <div className="box">
+                      <p className="title">{client.name}</p>
+                      <p>{client.age} rokov</p>
+                      <p>162 cm</p>
+                      <p>jedna z hlavných postáv - 2 seriály</p>
+                      <p>epizódna postava- 4 seriály</p>
+                      <p>1 študentský film</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+        });
+      }
+
+      setAllClients() {
+        this.setState({
+          allClientsHtml: 
+            <div>
+              <section>
+                <div className="m-4">
+                  <div className="columns is-multiline my-4">
+                    {
+                      this.state.clientsList.map((client, index) => (
+                        <div key={index} className="column is-4" onMouseOver={() => (this.setActiveClient(client))}>
+                          <div className="box">
+                            <figure className="image">    
+                              <a className="" role="button" onClick={() => this.handleClick()}>
+                                <img src={"./media/"+client.image}></img>
+                              </a>
+                            </figure>
+                            <div className="mt-3">{client.name}, {client.age}</div>
+                          </div>
+                        </div>
+                      ))
+                    }
+                  </div>
+                </div>
+              </section>
+            </div>,
+            showOne: false
+        });
+      }
+
+      handleClick() {
+        this.setState({
+          showOne:true
+        })
+      }
+         
+      render() {
+        const { clientsList , allClientsHtml, currentClientHtml, showOne } = this.state;
+        let main = allClientsHtml;
+        showOne ? main = currentClientHtml : main = allClientsHtml;
+
+        return (
+          main
+        )
+      }
+    }
+
+    ReactDOM.render(<Main />, document.getElementById('main'));
+  </script>
+
+
+
+    <script type=text/babel>
+      class Footer extends React.Component {
+        constructor(props) {
+          super(props);
+          this.footer = <footer className="footer has-background-black">
+              <div className="content" >
+                  <div className="columns my-4" style={{textAlign:"center"}}>
+                    <div className="column is-4"></div>
+                      <div className="column is-4">
+                          <div>
+                              <a className="has-text-white is-left" href="tel:+421902163191">
+                                  <i className="fa fa-phone"></i>
+                                  <span className="ml-2">+421 902 163 191</span>
+                              </a>
+                          </div>
+                          <div>
+                              <a className="has-text-white" href="mailto:lukas.doza@gmail/com">
+                                <i className="fa fa-envelope"></i>
+                                  <span className="ml-2">lukas.doza@gmail.com</span>
+                              </a>
+                          </div>
+                      </div>
+                      <div className="column is-4"></div>
+                  </div>
+              </div>
+            </footer>;
+        }
+        render() {
+          return this.footer;
+        
+        }
+      }
+
+      ReactDOM.render(<Footer />, document.getElementById('footer'));
+    </script>
+</html>
