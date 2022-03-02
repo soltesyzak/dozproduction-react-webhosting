@@ -1,4 +1,4 @@
-# DoZ web hosted app
+# DoZ webhosting
 Ongoing (not finished yet) project for a talent agency that manages and represents slovak actors. It serves as presentation of clients (actors). Production link: http://dozproduction.com/
 
 ## Deployment
