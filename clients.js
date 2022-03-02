@@ -1,17 +1,26 @@
 const clientsList = [
     {
+      "id": 1000,
       "name": "Laura",
       "age": "20",
-      "image": "1.jpeg"
+      "images": 2,
+      "height":"",
+      "info": []
     },
     {
+      "id": 2000,
       "name": "Ivana",
       "age": "19",
-      "image": "2.jpeg"
+      "images": 3,
+      "height":"",
+      "info": []
     },
     {
+      "id": 3000,
       "name": "Alexandra",
       "age": "25",
-      "image":"3.jpeg"
+      "images": 3,
+      "height":"",
+      "info": []
     }
 ]  

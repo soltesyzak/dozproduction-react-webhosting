@@ -135,13 +135,35 @@
                     <div className="box">
                       <p className="title">{client.name}</p>
                       <p>{client.age} rokov</p>
-                      <p>162 cm</p>
+                      <p>{client.height} cm</p>
                       <p>jedna z hlavných postáv - 2 seriály</p>
                       <p>epizódna postava- 4 seriály</p>
                       <p>1 študentský film</p>
                     </div>
                   </div>
-                </div>
+                  <div className="column is-8">
+                    <div className="box">
+                      <div className="slideshow-container">
+                        
+                        <div className="mySlides">
+                          <div className="numbertext">1 / 3</div>
+                          <figure className="image">    
+                            <a className="" href="">
+                              <img src={`./media/${client.id}.jpeg`} style={{width:"100%"}} ></img>
+                            </a>
+                          </figure>
+                        </div>
+
+                      </div>
+                      <br />
+                      <div style={{textAlign:"center"}}>
+                          <span className="dot active"></span>
+                          <span className="dot"></span>
+                          <span className="dot"></span>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
               </section>
             </div>
         });
@@ -160,7 +182,7 @@
                           <div className="box">
                             <figure className="image">    
                               <a className="" role="button" onClick={() => this.handleClick()}>
-                                <img src={"./media/"+client.image}></img>
+                                <img src={`./media/${client.id}_0.jpeg`}></img>
                               </a>
                             </figure>
                             <div className="mt-3">{client.name}, {client.age}</div>
