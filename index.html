@@ -110,27 +110,45 @@
     class Landing extends React.Component {
       constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+          downButton: {
+            position: "absolute", 
+            bottom: "5rem", 
+            left: "50%",
+            transform: "translate(-50%, 0)"
+          },
+          header: {
+            margin: "0",
+            position: "absolute",
+            margin: "auto",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -120%)"
+          }
+        }
       }
 
       render() {
+        const { downButton, header } = this.state;
         return (
-          <div className="m-4">
+          <div className="m-4" style={{height: "100vh", position:"relative"}}>
             <div className="columns">
-              <div className="column is-6">
-                <section className="section is-large">
-                  <h1 className="title">DoZ production</h1>
-                  <h2 className="subtitle">
-                    zastupovanie hercov
-                  </h2>
-                </section>
-              </div>
-              <div className="column is-6">
-                <figure style={{cursor: "pointer"}}>    
-                  <a className="">
-                    <img className="m-0 p-0" src="./media/intro_0.jpeg" />
-                  </a>
-                </figure>
+              <div className="column is-12">
+                <div className="has-text-centered">
+                  <div style={header}>
+                    <h1 className="title">DoZ production</h1>
+                    <h2 className="subtitle">zastupovanie hercov</h2>
+                  </div>
+                  <div className="has-text-centered" style={downButton}>
+                    <p className="">naši klienti</p>
+                    <a
+                      className="button is-rounded mt-2"
+                      href="#marginator"
+                    >
+                      <i className="fa fa-arrow-down"></i>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -201,6 +219,7 @@
               !showOne ? (
                 <div>
                   <Landing />
+                  <div id="marginator"></div>
                   <section>
                     <div className="m-4">
                       <div className="columns is-multiline my-4">
