@@ -12,7 +12,7 @@
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> 
   <script src="https://unpkg.com/htmlincludejs"></script>
-  <script src="./clients.js"></script>
+  <script src="./data/clients.js"></script>
 </head>
 <body> 
   <div id="navigation"></div>
@@ -111,6 +111,9 @@
       constructor(props) {
         super(props);
         this.state = {
+          width: window.innerWidth, 
+          height: window.innerHeight,
+          vh: 100-(window.innerWidth/100),
           downButton: {
             position: "absolute", 
             bottom: "5rem", 
@@ -126,12 +129,27 @@
             transform: "translate(-50%, -120%)"
           }
         }
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+      }
+
+      componentDidMount() {
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+      }
+
+      componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+      }
+
+      updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight, vh: 100 - (window.innerWidth/100) });
+        console.log(Math.sqrt(this.state.width/this.state.vh)*30)
       }
 
       render() {
-        const { downButton, header } = this.state;
+        const { width, vh, downButton, header, height } = this.state;
         return (
-          <div className="m-4" style={{height: "100vh", position:"relative"}}>
+          <div className="m-4" style={{height: `${Math.sqrt(width/vh)*30}vh`, position:"relative", maxHeight: "100vh"}}>
             <div className="columns">
               <div className="column is-12">
                 <div className="has-text-centered">
