@@ -41,7 +41,7 @@
 
       render() {
         const { isActive } = this.state;
-          return (
+        return (
           <div className="divNav">
             <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation" onClick={this.onClickMenu}>
               <div className="navbar-brand">
@@ -96,7 +96,8 @@
                 </div>
               </div>
             </nav>
-          </div>);
+          </div>
+        );
       } 
     }
 
@@ -104,6 +105,44 @@
   </script>
   <!-- Navigation END -->
 
+  <!-- Landing -->
+  <script type="text/babel">
+    class Landing extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {}
+      }
+
+      render() {
+        return (
+          <div className="m-4">
+            <div className="columns">
+              <div className="column is-6">
+                <section className="section is-large">
+                  <h1 className="title">DoZ production</h1>
+                  <h2 className="subtitle">
+                    zastupovanie hercov
+                  </h2>
+                </section>
+              </div>
+              <div className="column is-6">
+                <figure style={{cursor: "pointer"}}>    
+                  <a className="">
+                    <img className="m-0 p-0" src="./media/intro_0.jpeg" />
+                  </a>
+                </figure>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    }
+
+    // ReactDOM.render(<Landing />, document.getElementById('landing'));
+  </script>
+  <!-- Landing END -->
+
+  <!-- Main -->
   <script type="text/babel">
     class Main extends React.Component {
       constructor(props) {
@@ -113,146 +152,169 @@
           currentClientHtml: <div></div>,
           currentClient: {},
           clientsList: clientsList,
-          showOne: false
+          activePhoto: 0,
+          showOne: false,
+          isActiveDot: ""
         }
         this.handleClick = this.handleClick.bind(this);
-        this.setAllClients = this.setAllClients.bind(this); 
+        this.setAllClients = this.setAllClients.bind(this);
+        this.setActivePhoto = this.setActivePhoto.bind(this);
       }
 
       componentDidMount() {
         this.setAllClients();
       };
 
-      setActiveClient(client) {
-        console.log(client, this.state.showOne);
-        this.setState({
+      async setActiveClient(client) {
+        await this.setState({
             currentClient: client,
-            currentClientHtml:
-            <div>
-              <section className="section">
-                <div className="columns is-multiline">
-                  <div className="column is-4">
-                    <div className="box">
-                      <p className="title">{client.name}</p>
-                      <p>{client.age} rokov</p>
-                      <p>{client.height} cm</p>
-                      <p>jedna z hlavných postáv - 2 seriály</p>
-                      <p>epizódna postava- 4 seriály</p>
-                      <p>1 študentský film</p>
-                    </div>
-                  </div>
-                  <div className="column is-8">
-                    <div className="box">
-                      <div className="slideshow-container">
-
-                        <div className="mySlides active">
-                          <div className="numbertext">1 / 3</div>
-                          <figure className="image">    
-                            <a className="" href="">
-                              <img src={`./media/${client.id}_0.jpeg`} style={{width:"100%"}} ></img>
-                            </a>
-                          </figure>
-                        </div>
-
-                      </div>
-                      <br />
-                      <div style={{textAlign:"center"}}>
-                          <span className="dot active"></span>
-                          <span className="dot"></span>
-                          <span className="dot"></span>
-                      </div>
-                      </div>
-                    </div>
-                  </div>
-              </section>
-            </div>
         });
       }
 
-      setAllClients() {
-        this.setState({
-          allClientsHtml: 
-            <div>
-              <section>
-                <div className="m-4">
-                  <div className="columns is-multiline my-4">
-                    {
-                      this.state.clientsList.map((client, index) => (
-                        <div key={index} className="column is-4" onMouseOver={() => (this.setActiveClient(client))}>
-                          <div className="box">
-                            <figure className="image">    
-                              <a className="" role="button" onClick={() => this.handleClick()}>
-                                <img src={`./media/${client.id}_0.jpeg`}></img>
-                              </a>
-                            </figure>
-                            <div className="mt-3">{client.name}, {client.age}</div>
-                          </div>
-                        </div>
-                      ))
-                    }
-                  </div>
-                </div>
-              </section>
-            </div>,
+      async setAllClients() {
+        await this.setState({
             showOne: false
         });
       }
 
-      handleClick() {
-        this.setState({
+      async handleClick() {
+        await this.setState({
           showOne:true
+        });
+        window.scrollTo(0, 0);
+      }
+
+      async setActivePhoto(i) {
+        await this.setState({
+          activePhoto:i,
+          isActiveDot:"active"
         })
+        console.log(this.state.activePhoto)
       }
          
       render() {
-        const { clientsList , allClientsHtml, currentClientHtml, showOne } = this.state;
-        let main = allClientsHtml;
-        showOne ? main = currentClientHtml : main = allClientsHtml;
+        const { clientsList , allClientsHtml, currentClient, currentClientHtml, activePhoto, showOne, isActiveDot } = this.state;
 
         return (
-          main
-        )
+          <div>
+            {
+              !showOne ? (
+                <div>
+                  <Landing />
+                  <section>
+                    <div className="m-4">
+                      <div className="columns is-multiline my-4">
+                        {
+                          clientsList.map((client, index) => (
+                            <div key={index} className="column is-4" onMouseOver={() => (this.setActiveClient(client))}>
+                              <div className="box">
+                                <figure className="image">    
+                                  <a className="" role="button" onClick={() => this.handleClick()}>
+                                    <img src={`./media/${client.id}_0.jpeg`}></img>
+                                  </a>
+                                </figure>
+                                <div className="mt-3">{client.name}, {client.age}</div>
+                              </div>
+                            </div>
+                          ))
+                        }
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              ) : (
+                <div>
+                  <section className="section">
+                    <div className="columns is-multiline">
+                      <div className="column is-1 has-text-centered">
+                        <button 
+                          className="button is-rounded"
+                          onClick={() => this.setAllClients()}
+                        >
+                          <i className="fa fa-arrow-left"></i>
+                        </button>
+                      </div>
+                      <div className="column is-5">
+                        <div className="box">
+                          <p className="title">{currentClient.name}</p>
+                          <p>{currentClient.age} rokov</p>
+                          <p>{currentClient.height} cm</p>
+                          <p>jedna z hlavných postáv - 2 seriály</p>
+                          <p>epizódna postava- 4 seriály</p>
+                          <p>1 študentský film</p>
+                        </div>
+                      </div>
+                      <div className="column is-6">
+                        <div className="box">
+                          <div className="slideshow-container">
+
+                            <div className="mySlides">
+                              <div className="numbertext">1 / 3</div>
+                              <figure className="image">    
+                                <a className="" role="button">
+                                  <img src={`./media/${currentClient.id}_${activePhoto}.jpeg`} style={{width:"100%"}} ></img>
+                                </a>
+                              </figure>
+                            </div>
+                          </div>
+                          <br />
+                          <div style={{textAlign:"center"}}>
+                            {
+                              [...Array(currentClient.images)].map((e, i) => <span key={i} className={`dot`} onClick={() => this.setActivePhoto(i)}></span>)
+                            }
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                  </section>
+                </div>
+              )
+            }
+          </div>
+        );             
       }
     }
 
     ReactDOM.render(<Main />, document.getElementById('main'));
   </script>
+  <!-- Main END -->
 
-
-
-    <script type=text/babel>
-      class Footer extends React.Component {
-        constructor(props) {
-          super(props);
-          this.footer = <footer className="footer has-background-black">
-              <div className="content" >
-                  <div className="columns my-4" style={{textAlign:"center"}}>
-                    <div className="column is-4"></div>
-                      <div className="column is-4">
-                          <div>
-                              <a className="has-text-white is-left" href="tel:+421902163191">
-                                  <i className="fa fa-phone"></i>
-                                  <span className="ml-2">+421 902 163 191</span>
-                              </a>
-                          </div>
-                          <div>
-                              <a className="has-text-white" href="mailto:lukas.doza@gmail/com">
-                                <i className="fa fa-envelope"></i>
-                                  <span className="ml-2">lukas.doza@gmail.com</span>
-                              </a>
-                          </div>
-                      </div>
-                      <div className="column is-4"></div>
-                  </div>
-              </div>
-            </footer>;
-        }
-        render() {
-          return this.footer;
-        
-        }
+  <!-- Footer -->
+  <script type=text/babel>
+    class Footer extends React.Component {
+      constructor(props) {
+        super(props);
       }
 
-      ReactDOM.render(<Footer />, document.getElementById('footer'));
-    </script>
+      render() {
+        return (
+          <footer className="footer has-background-black">
+            <div className="content" >
+              <div className="columns my-4" style={{textAlign:"center"}}>
+                <div className="column is-4"></div>
+                <div className="column is-4">
+                  <div>
+                    <a className="has-text-white is-left" href="tel:+421902163191">
+                      <i className="fa fa-phone"></i>
+                      <span className="ml-2">+421 902 163 191</span>
+                    </a>
+                    </div>
+                    <div>
+                      <a className="has-text-white" href="mailto:lukas.doza@gmail/com">
+                        <i className="fa fa-envelope"></i>
+                          <span className="ml-2">lukas.doza@gmail.com</span>
+                        </a>
+                    </div>
+                  </div>
+                <div className="column is-4"></div>
+              </div>
+            </div>
+          </footer>
+        );
+      }
+    }
+
+    ReactDOM.render(<Footer />, document.getElementById('footer'));
+  </script>
+  <!-- Footer END -->
 </html>
