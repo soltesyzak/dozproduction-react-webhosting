@@ -1,3 +1,236 @@
+@font-face {
+  font-family:"Morganite-ExtraLight";
+  src: url("./fonts/Quicksand-Light.ttf") format("truetype");
+}
+
+body {
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  font-family:"Morganite-ExtraLight";
+  src: url("./fonts/Quicksand-Light.ttf") format("truetype");
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+   }
+}
+
+.center {
+  text-align: center;
+}
+
+.img-hover-zoom {
+  overflow: hidden; /* [1.2] Hide the overflowing of child elements */
+}
+
+/* [2] Transition property for smooth transformation of images */
+.img-hover-zoom img {
+  transition: transform .2s ease;
+}
+
+/* [3] Finally, transforming the image when container gets hovered */
+.img-hover-zoom:hover img {
+  transform: scale(1.05);
+}
+
+.background-white {
+  background-color: white;
+  -webkit-transition: background-color 200ms linear;
+  -ms-transition: background-color 200ms linear;
+  transition: background-color 200ms linear
+}
+.title {
+  line-height: 1.5 !important;
+  color: black;
+}
+.background-black {
+  height: 100vh;
+  background-color: black;
+  -webkit-transition: background-color 200ms linear;
+  -ms-transition: background-color 200ms linear;
+  transition: background-color 200ms linear
+}
+
+.hamburger {
+	width: 44px;
+	height: 30px;
+	padding: 13px 11px;
+	display: block;
+	cursor: pointer;
+	position: fixed;
+	top: 40px;
+	left: 40px;
+	cursor: pointer;
+	z-index: 9999;
+}
+
+.back-button {
+  display: block;
+  cursor: pointer;
+  position: fixed;
+  top: 48px;
+  left: 125px;
+  cursor: pointer;
+  z-index: 9999;
+  font-size: 20px;
+  color: black;
+}
+
+.centered {
+  position: absolute;
+  padding: 5px 11px;
+  top: 40px;
+  right: 50%;
+  transform: translate(50%,0%);
+  transition: visibility 0.5s, opacity 0.5s linear;
+}
+
+.show {
+  transition: 0.5s linear;
+  display: block !important;
+}
+
+.show-div {
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+  animation: fadeInAnimation ease .5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.hide {
+  display: none;
+}
+
+.white {
+  color: #f2f2f2;
+}
+
+.white-bar {
+  background-color: #f2f2f2 !important;
+}
+
+.black {
+  color: black;
+}
+
+a.social:hover {
+  color:rgb(124, 4, 254);
+}
+
+a.social{
+  color:rgb(124, 4, 254);
+}
+
+.box-upgraded {
+  text-align: center;
+  box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+  display: block;
+}
+
+.social {
+  margin: 13px 11px;
+	display: block;
+	cursor: pointer;
+	position: fixed;
+	top: 40px;
+	cursor: pointer;
+	z-index: 9999;
+}
+
+.email {
+	right: 40px;
+}
+
+.phone {
+	right: 80px;
+}
+
+.ig {
+  right: 120px
+}
+
+.fb {
+  right: 160px
+}
+
+.hamburger span {
+  background-color: rgb(124, 4, 254);
+  display: block;
+  position: absolute;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 33px;
+  height: 4px;
+  transition: 0.4s;
+}
+
+.hamburger .bar1 {
+  top: 10px;
+}
+
+.hamburger .bar2 {
+  top: 20px;
+}
+
+.hamburger .bar3 {
+  top: 30px;
+}
+
+.closeburger .bar1
+{
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  top: 21px;
+}
+
+.closeburger .bar2
+{
+  opacity: 0;
+}
+
+.closeburger .bar3
+{
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: 21px;
+}
+
+.ul-menu {
+  position: absolute;
+  top: 100px;
+  left: 40px;
+  padding: 13px 11px;
+}
+
+.li-menu {
+  cursor: pointer;
+  padding: 13px 11px;
+}
+
+.li-menu:hover {
+  text-decoration: underline;
+  -webkit-text-decoration-color: #f2f2f2; /* Safari */  
+  text-decoration-color:#f2f2f2;
+  -webkit-text-decoration-thickness: 2px; /* Safari */  
+  text-decoration-thickness: 1px;
+}
+
+.marginated {
+  margin-top: 50px;
+}
+
 .divNav {
     min-height: 65px;
 }
@@ -74,9 +307,9 @@
 /* The dots/bullets/indicators */
 .dot {
   cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
+  height: 20px;
+  width: 20px;
+  margin: 0 20px;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
@@ -95,10 +328,6 @@
   transform: translateY(-50%);
 }
 
-#marginator {
-  height: 5rem;
-}
-
 /* Fading animation */
 .fade {
   -webkit-animation-name: fade;
@@ -115,4 +344,41 @@
 @keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
+}
+
+@media only screen and (max-width: 800px) {
+  .email {
+    right: 10px;
+  }
+  
+  .phone {
+    right: 50px;
+  }
+  
+  .ig {
+    right: 90px
+  }
+  
+  .fb {
+    right: 130px
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .social {
+    display: none;
+  }
+  .up-title {
+    font-size: 1.4rem !important;
+  }
+  .centered {
+    right: 130px
+  }
+
+  .li-menu {
+    padding: 11px 0;
+  }
+  .show-div {
+    width: 90%;
+  }
 }

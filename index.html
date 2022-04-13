@@ -6,352 +6,261 @@
   <title>DoZ production</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" type=text/css href="index.css" />
   <!-- Your custom script here -->
   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> 
-  <script src="https://unpkg.com/htmlincludejs"></script>
   <script src="./data/clients.js"></script>
 </head>
 <body> 
-  <div id="navigation"></div>
-  <div id="main"></div>
-  <div id="footer"></div>
+  <div id="app"></div>
 </body>
 
-
-<!-- Navigation -->
-  <script type="text/babel">
-    class Navigation extends React.Component {
-      constructor(props) {
-        super(props);
-        this.state = {
-          isActive: false
-        }
-        this.onClickMenu = this.onClickMenu.bind(this);           
-      }
-
-      onClickMenu() {
-        this.setState({
-          isActive: !this.state.isActive
-        })
-      } 
-
-
-      render() {
-        const { isActive } = this.state;
-        return (
-          <div className="divNav">
-            <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation" onClick={this.onClickMenu}>
-              <div className="navbar-brand">
-                <a className="navbar-item" href="/">
-                  <figure className="image">
-                    <img />
-                  </figure>
-                </a>
-                <a role="button" className={"navbar-burger"+ (isActive ? " is-active": "")} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                  <span aria-hidden="true"></span>
-                  <span aria-hidden="true"></span>
-                  <span aria-hidden="true"></span>
-                </a>
-              </div>
-              <div id="navbarBasicExample" style={{minHeight: '85px'}} className={"navbar-menu"+ (isActive ? " is-active": "") }>
-                <div className="navbar-start">
-                  <a className="navbar-item" href="./index.html">
-                    <figure className="image">
-                      <img className="navbarImg" src={"./media/IMG_9725.jpg"}/>
-                    </figure>
-                  </a>
-                </div>
-                <div className="navbar-end">
-                  <a className="navbar-item" target="_blank" href="https://facebook.com/DoZproduction/">
-                    <span className="icon-text">
-                      <span className="icon mx-2">
-                        <i className="fa fa-facebook fa-2x"></i>
-                      </span>
-                    </span>
-                  </a>
-                  <a className="navbar-item" target="_blank" href="https://instagram.com/doz_group">
-                    <span className="icon-text">
-                      <span className="icon mx-2">
-                        <i className="fa fa-instagram fa-2x"></i>
-                      </span>
-                    </span>
-                  </a>
-                  <a className="navbar-item" href="tel:+421902163191">
-                    <span className="icon-text">
-                      <span className="icon mx-2">
-                        <i className="fa fa-phone fa-2x"></i>
-                      </span>
-                    </span>
-                  </a>
-                  <a className="navbar-item" target="_blank" href="mailto:lukas.doza@gmail.com">
-                    <span className="icon-text">
-                      <span className="icon mx-2">
-                        <i className="fa fa-envelope fa-2x"></i>
-                      </span>
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </nav>
-          </div>
-        );
-      } 
-    }
-
-    ReactDOM.render( <Navigation />, document.getElementById('navigation'));
-  </script>
-  <!-- Navigation END -->
-
-  <!-- Landing -->
-  <script type="text/babel">
-    class Landing extends React.Component {
-      constructor(props) {
-        super(props);
-        this.state = {
-          width: window.innerWidth, 
-          height: window.innerHeight,
-          vh: 100-(window.innerWidth/100),
-          downButton: {
-            position: "absolute", 
-            bottom: "5rem", 
-            left: "50%",
-            transform: "translate(-50%, 0)"
-          },
-          header: {
-            margin: "0",
-            position: "absolute",
-            margin: "auto",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -120%)"
-          }
-        }
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-      }
-
-      componentDidMount() {
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
-      }
-
-      componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-      }
-
-      updateWindowDimensions() {
-        this.setState({ width: window.innerWidth, height: window.innerHeight, vh: 100 - (window.innerWidth/100) });
-        console.log(Math.sqrt(this.state.width/this.state.vh)*30)
-      }
-
-      render() {
-        const { width, vh, downButton, header, height } = this.state;
-        return (
-          <div className="m-4" style={{height: `${Math.sqrt(width/vh)*30}vh`, position:"relative", maxHeight: "100vh"}}>
-            <div className="columns">
-              <div className="column is-12">
-                <div className="has-text-centered">
-                  <div style={header}>
-                    <h1 className="title">DoZ production</h1>
-                    <h2 className="subtitle">zastupovanie hercov</h2>
-                  </div>
-                  <div className="has-text-centered" style={downButton}>
-                    <p className="">naši klienti</p>
-                    <a
-                      className="button is-rounded mt-2"
-                      href="#marginator"
-                    >
-                      <i className="fa fa-arrow-down"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      }
-    }
-
-    // ReactDOM.render(<Landing />, document.getElementById('landing'));
-  </script>
-  <!-- Landing END -->
-
-  <!-- Main -->
-  <script type="text/babel">
-    class Main extends React.Component {
-      constructor(props) {
-        super(props);
-        this.state = {
-          allClientsHtml: <div></div>,
-          currentClientHtml: <div></div>,
-          currentClient: {},
-          clientsList: clientsList,
-          activePhoto: 0,
-          showOne: false,
-          isActiveDot: ""
-        }
-        this.handleClick = this.handleClick.bind(this);
-        this.setAllClients = this.setAllClients.bind(this);
-        this.setActivePhoto = this.setActivePhoto.bind(this);
-      }
-
-      componentDidMount() {
-        this.setAllClients();
-      };
-
-      async setActiveClient(client) {
-        await this.setState({
-            currentClient: client,
-        });
-      }
-
-      async setAllClients() {
-        await this.setState({
-            showOne: false
-        });
-      }
-
-      async handleClick() {
-        await this.setState({
-          showOne:true
-        });
-        window.scrollTo(0, 0);
-      }
-
-      async setActivePhoto(i) {
-        await this.setState({
-          activePhoto:i,
-          isActiveDot:"active"
-        })
-        console.log(this.state.activePhoto)
-      }
-         
-      render() {
-        const { clientsList , allClientsHtml, currentClient, currentClientHtml, activePhoto, showOne, isActiveDot } = this.state;
-
-        return (
-          <div>
-            {
-              !showOne ? (
-                <div>
-                  <Landing />
-                  <div id="marginator"></div>
-                  <section>
-                    <div className="m-4">
-                      <div className="columns is-multiline my-4">
-                        {
-                          clientsList.map((client, index) => (
-                            <div key={index} className="column is-4" onMouseOver={() => (this.setActiveClient(client))}>
-                              <div className="box">
-                                <figure className="image">    
-                                  <a className="" role="button" onClick={() => this.handleClick()}>
-                                    <img src={`./media/${client.id}_0.jpeg`}></img>
-                                  </a>
-                                </figure>
-                                <div className="mt-3">{client.name}, {client.age}</div>
-                              </div>
-                            </div>
-                          ))
-                        }
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              ) : (
-                <div>
-                  <section className="section">
-                    <div className="columns is-multiline">
-                      <div className="column is-1 has-text-centered">
-                        <button 
-                          className="button is-rounded"
-                          onClick={() => this.setAllClients()}
-                        >
-                          <i className="fa fa-arrow-left"></i>
-                        </button>
-                      </div>
-                      <div className="column is-5">
-                        <div className="box">
-                          <p className="title">{currentClient.name}</p>
-                          <p>{currentClient.age} rokov</p>
-                          <p>{currentClient.height} cm</p>
-                          <p>jedna z hlavných postáv - 2 seriály</p>
-                          <p>epizódna postava- 4 seriály</p>
-                          <p>1 študentský film</p>
-                        </div>
-                      </div>
-                      <div className="column is-6">
-                        <div className="box">
-                          <div className="slideshow-container">
-
-                            <div className="mySlides">
-                              <div className="numbertext">1 / 3</div>
-                              <figure className="image">    
-                                <a className="" role="button">
-                                  <img src={`./media/${currentClient.id}_${activePhoto}.jpeg`} style={{width:"100%"}} ></img>
-                                </a>
-                              </figure>
-                            </div>
-                          </div>
-                          <br />
-                          <div style={{textAlign:"center"}}>
-                            {
-                              [...Array(currentClient.images)].map((e, i) => <span key={i} className={`dot`} onClick={() => this.setActivePhoto(i)}></span>)
-                            }
-                          </div>
-                          </div>
-                        </div>
-                      </div>
-                  </section>
-                </div>
-              )
+<script type="text/babel">
+    class App extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                header: "DoZ Porduction",
+                isMenuActive: false,
+                allClientsHtml: <div></div>,
+                currentClientHtml: <div></div>,
+                currentClient: {
+                    "id": 1000,
+                    "name": "Laura",
+                    "age": 20,
+                    "images": 2,
+                    "height": 160,
+                    "info": [],
+                    "photos": [
+                        "./media/1000_0.jpeg",
+                        "./media/1000_1.jpeg"
+                    ]
+                },
+                allClients: clientsList,
+                clientsList: clientsList,
+                activePhoto: 0,
+                showOne: false,
+                isActiveDot: ""
             }
-          </div>
-        );             
-      }
-    }
 
-    ReactDOM.render(<Main />, document.getElementById('main'));
-  </script>
-  <!-- Main END -->
+            this.handleClick = this.handleClick.bind(this);
+            this.setAllClients = this.setAllClients.bind(this);
+            this.setActivePhoto = this.setActivePhoto.bind(this);
+            this.onClickMenu = this.onClickMenu.bind(this);
+            this.onClickFilter = this.onClickFilter.bind(this);
+        }
 
-  <!-- Footer -->
-  <script type=text/babel>
-    class Footer extends React.Component {
-      constructor(props) {
-        super(props);
-      }
+        onClickMenu() {
+            this.setState({
+                isMenuActive: !this.state.isMenuActive
+            })
+        }
 
-      render() {
-        return (
-          <footer className="footer has-background-black">
-            <div className="content" >
-              <div className="columns my-4" style={{textAlign:"center"}}>
-                <div className="column is-4"></div>
-                <div className="column is-4">
-                  <div>
-                    <a className="has-text-white is-left" href="tel:+421902163191">
-                      <i className="fa fa-phone"></i>
-                      <span className="ml-2">+421 902 163 191</span>
-                    </a>
-                    </div>
-                    <div>
-                      <a className="has-text-white" href="mailto:lukas.doza@gmail/com">
-                        <i className="fa fa-envelope"></i>
-                          <span className="ml-2">lukas.doza@gmail.com</span>
+        async onClickFilter(param) {
+            let clients = this.state.allClients;
+            let header = "";
+
+            if (param === "male") {
+                header = "Herci"
+                clients = this.state.allClients.filter(client => 
+                    client.sex === "M" & client.age > 17
+                );
+            } else if (param === "female") {
+                header = "Herečky"
+                clients = this.state.allClients.filter(client => 
+                    client.sex === "F" & client.age > 17
+                );
+            } else if (param === "kids") {
+                header = "Detskí herci"
+                clients = this.state.allClients.filter(client => 
+                    client.age < 18
+                );
+            } else if (param === "home") {
+                header = "DoZ production";
+            }
+
+            await this.setState({
+                header: header,
+                clientsList: clients,
+                isMenuActive: !this.state.isMenuActive,
+                showOne: false
+            });
+        }
+
+        componentDidMount() {
+            this.setAllClients();
+        };
+
+        async setActiveClient(client) {
+            await this.setState({
+                currentClient: client,
+            });
+        }
+
+        async setAllClients() {
+            await this.setState({
+                showOne: false,
+                activePhoto: 0
+            });
+        }
+
+        async handleClick() {
+            await this.setState({
+                showOne:true,
+            });
+            window.scrollTo(0, 0);
+        }
+
+        async setActivePhoto(i) {
+            await this.setState({
+                activePhoto:i,
+                isActiveDot:"active"
+            })
+            console.log(this.state.activePhoto)
+        }
+        render() {
+            const { header, isMenuActive, clientsList , allClientsHtml, currentClient, currentClientHtml, activePhoto, showOne, isActiveDot } = this.state;
+
+            return (
+                <div>
+
+                    <div className={isMenuActive ? "background-black" : "background-white"}>
+                        <a className={isMenuActive ? "hamburger closeburger" : "hamburger"} role="button" onClick={() => this.onClickMenu()}>
+                            <span className={isMenuActive ? "bar1 white-bar" : "bar1"}></span>
+                            <span className={isMenuActive ? "bar2 white-bar" : "bar2"}></span>
+                            <span className={isMenuActive ? "bar3 white-bar" : "bar3"}></span>
                         </a>
-                    </div>
-                  </div>
-                <div className="column is-4"></div>
-              </div>
-            </div>
-          </footer>
-        );
-      }
-    }
+                        {isMenuActive ? 
+                            (<div></div>)
+                        :
+                            (
+                                <div className={showOne ? "show back-button":"hide"}>
+                                    <span className="icon-text">
+                                        <span className="icon mx-1">
+                                            <i onClick={() => this.setAllClients()} className="fa fa-arrow-left fa-sm"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            )
+                        }
 
-    ReactDOM.render(<Footer />, document.getElementById('footer'));
-  </script>
-  <!-- Footer END -->
-</html>
+                        <div className={isMenuActive ? "hide" : "centered"}>
+                            <h1 className="title up-title">{header}</h1>
+                        </div>
+                        <a className={isMenuActive ? "social fb white show" : "social fb black"} target="_blank" href="https://facebook.com/DoZproduction/">
+                            <span className="icon-text">
+                                <span className="icon mx-1">
+                                    <i className="fa fa-facebook fa-lg"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <a className={isMenuActive ? "social ig white show" : "social ig black"} target="_blank" href="https://instagram.com/doz_group">
+                            <span className="icon-text">
+                                <span className="icon mx-1">
+                                    <i className="fa fa-instagram fa-lg"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <a className={isMenuActive ? "social phone white show" : "social phone black"} href="tel:+421902163191">
+                            <span className="icon-text">
+                                <span className="icon mx-1">
+                                    <i className="fa fa-phone fa-lg"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <a className={isMenuActive ? "social email white show" : "social email black"} target="_blank" href="mailto:lukas.doza@gmail.com">
+                            <span className="icon-text">
+                                <span className="icon mx-1">
+                                    <i className="fa fa-envelope fa-lg"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <div>
+                            <ul className={isMenuActive ? "show ul-menu" : "hide"}>
+                                <li onClick={() => this.onClickFilter("home")} className={"li-menu"}><h2 style={{color:"rgb(124, 4, 254)"}} className="title">Home</h2></li>
+                                <li onClick={() => this.onClickFilter("male")} className={"li-menu"}><h2 className="title white">Herci</h2></li>
+                                <li onClick={() => this.onClickFilter("female")} className={"li-menu"}><h2 className="title white">Herečky</h2></li>
+                                <li onClick={() => this.onClickFilter("kids")} className={"li-menu"}><h2 className="title white">Detskí herci</h2></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+                    <div className={!showOne ? "show-div":"hide"}>
+                        <section className={isMenuActive ? "hide" : "section show marginated"}>
+                            <div className="m-4">
+                                <div className="columns is-multiline my-4">
+                                    {
+                                    clientsList.map((client, index) => (
+                                        <div key={index} className="column is-4" onMouseOver={() => (this.setActiveClient(client))}>
+                                            <div className="box-upgraded">
+                                                <figure className="image">    
+                                                <a className="" role="button" onClick={() => this.handleClick()}>
+                                                    <div className="img-hover-zoom">
+                                                        <img src={`${client.photos[0]}`}></img>
+                                                    </div>
+                                                </a>
+                                                </figure>
+                                            </div>
+                                            <div className="py-3 center"><h3 className="subtitle is-4">{client.name}, {client.age}</h3></div>
+                                        </div>
+                                    ))
+                                    }
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    
+
+
+
+
+                    <div className={!showOne ? "hide":"show-div"}>
+                        <section className={isMenuActive ? "hide" : "section show marginated"}>
+                            <div className="columns my-4">
+                                <div className="column is-4"></div>
+                                <div className="column is-4">
+                                    <div className="box-upgraded">
+                                        <div className="slideshow-container">
+
+                                            <div className="mySlides">
+                                            <div className="numbertext">1 / 3</div>
+                                            <figure className="image">    
+                                                <a className="" role="button">
+                                                    <img src={`${currentClient.photos[activePhoto]}`} style={{width:"100%"}} ></img>
+                                                </a>
+                                            </figure>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style={{textAlign:"center", marginTop:"10%"}}>
+                                        {
+                                            [...Array(currentClient.photos.length)].map((e, i) => <span key={i} className={`dot`} onClick={() => this.setActivePhoto(i)}></span>)
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="columns">
+                                <div className="column is-half is-offset-one-quarter">
+                                    <div className="center">
+                                    <p className="title">{currentClient.name}</p>
+                                    <p>{currentClient.age} rokov</p>
+                                    <p>{currentClient.height} cm</p>
+                                    <p>jedna z hlavných postáv - 2 seriály</p>
+                                    <p>epizódna postava- 4 seriály</p>
+                                    <p>1 študentský film</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                </div>
+            );
+        }
+    }
+    ReactDOM.render( <App />, document.getElementById('app'));
+</script>
